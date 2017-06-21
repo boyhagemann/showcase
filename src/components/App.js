@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl'
 import { composeWithDevTools } from 'remote-redux-devtools'
 import thunk from 'redux-thunk'
 import { injectGlobal } from 'styled-components'
+import { routerMiddleware } from 'react-router-redux'
 
 import Responsive from './Responsive'
 import ResponsiveThemeProvider from './ResponsiveThemeProvider'
@@ -13,6 +14,7 @@ import WorkspaceContainer from './UI/WorkspaceContainer'
 
 import reducers from '../redux'
 import messages from '../data/translations'
+import history from '../redux/routerHistory'
 
 injectGlobal([`
   body {
@@ -23,8 +25,10 @@ injectGlobal([`
   }
 `])
 
+
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(
-  thunk
+  thunk,
+  routerMiddleware(history)
 )))
 
 const App = () => (

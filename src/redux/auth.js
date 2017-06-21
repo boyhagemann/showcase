@@ -4,6 +4,7 @@ const defaultState = {
   loading: false,
   isAuthenticated: getToken(),
   token: getToken(),
+  credentials: {},
   error: '',
 }
 
@@ -12,13 +13,14 @@ const AUTH_SUCCESS = 'auth.success'
 const AUTH_ERROR = 'auth.error'
 const AUTH_LOGOUT = 'auth.logout'
 
-export const login = (username, password) => dispatch => {
-  dispatch(start())
+export const login = (email, password) => dispatch => {
+  dispatch(start(email))
   dispatch(success('some-token'));
 }
 
-const start = () => ({
+const start = email => ({
   type: AUTH_LOGIN,
+  email
 })
 
 const success = token => {
@@ -46,6 +48,9 @@ export default (state = defaultState, action) => {
         loading: true,
         isAuthenticated: false,
         token: '',
+        credentials: {
+          email: action.email
+        },
         error: '',
       }
 
@@ -64,6 +69,7 @@ export default (state = defaultState, action) => {
         loading: false,
         isAuthenticated: false,
         token: '',
+        credentials: {},
         error: action.error,
       }
 
@@ -73,6 +79,7 @@ export default (state = defaultState, action) => {
         loading: false,
         isAuthenticated: false,
         token: '',
+        credentials: {},
         error: ''
       }
 

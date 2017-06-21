@@ -70,7 +70,7 @@ export default ({ project, node, field, nodes, path = [], types, fields, add, re
   </Nodes>
 ) : (
   <RedirectWithMessage
-    to={`/projects/${project.id}/nodes`}
+    to={`/projects/${project.id}`}
     message="The node is not found"
     status="negative"
   />

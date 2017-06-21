@@ -29,6 +29,13 @@ export const list = project => dispatch => {
 const listSuccess = nodes => ({ type: NODE_LIST_SUCCESS, nodes })
 // const listError = error => ({ type: NODE_LIST_ERROR, error })
 
+export const createRootNode = (id, project, typeId) => ({
+  type: NODE_ADD,
+  id,
+  project,
+  typeId,
+})
+
 export const add = (project, field, parent, typeId, properties = {}) => ({
   type: NODE_ADD,
   id: uuidv4(),
@@ -56,7 +63,7 @@ export default (state = defaultState, action) => {
 
     case NODE_ADD:
 
-      const { type, ...data } = action
+      const { type, typeId, ...data } = action
 
       return normalize([ ...state.list, {
         ...data,

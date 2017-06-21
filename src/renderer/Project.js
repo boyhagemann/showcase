@@ -5,7 +5,7 @@ import Node from './Node'
 const Project = styled.div`
 `
 
-export default ({ content }) => (
+export default ({ content = [] }) => (
   <Project>
     { content.map(id => <Node key={id} id={id} />) }
   </Project>

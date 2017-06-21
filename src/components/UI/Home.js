@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import ButtonLink from './ButtonLink'
+import Button from './Button'
 import { FormattedMessage } from 'react-intl'
 
 const Visual = styled.div`
@@ -27,13 +27,28 @@ const SubHeading = styled.h2`
     color: ${ props => props.theme.ui.home.visual.color };
 `
 
-export default () => (
+const renderCreateButton = (create) => {
+
+  // const id = uuidv4()
+
+  return (
+    <Button
+      primary
+      large
+      onClick={create}
+    >
+      <FormattedMessage id="home.visual.actions.create-project" />
+    </Button>
+  )
+}
+
+export default ({ create }) => (
   <div>
     <Visual>
         <Container>
             <Heading><FormattedMessage id="home.visual.heading" /></Heading>
             <SubHeading><FormattedMessage id="home.visual.subheading" /></SubHeading>
-            <ButtonLink primary large to={`/projects`}><FormattedMessage id="home.visual.actions.create-project" /></ButtonLink>
+            { renderCreateButton(create) }
         </Container>
     </Visual>
   </div>
