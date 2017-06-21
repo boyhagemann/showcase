@@ -3,6 +3,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import { composeWithDevTools } from 'remote-redux-devtools'
+import {persistStore, autoRehydrate} from 'redux-persist'
 import thunk from 'redux-thunk'
 import { injectGlobal } from 'styled-components'
 import { routerMiddleware } from 'react-router-redux'
@@ -26,10 +27,17 @@ injectGlobal([`
 `])
 
 
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(
-  thunk,
-  routerMiddleware(history)
-)))
+const store = createStore(reducers, composeWithDevTools(
+  applyMiddleware(
+    thunk,
+    routerMiddleware(history)
+  ),
+  autoRehydrate()
+))
+
+// begin periodically persisting the store
+// persistStore(store)
+//   .purge()
 
 const App = () => (
   <Provider store={store}>

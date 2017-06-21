@@ -16,6 +16,8 @@ export const NODE_LIST_SUCCESS = 'node.list.success'
 
 export const NODE_ADD = 'node.add'
 export const NODE_REMOVE = 'node.remove'
+export const NODE_TOGGLE_EDIT = 'node.toggle.edit'
+export const NODE_PROPERTY_CHANGE = 'node.property.change'
 
 export const list = project => dispatch => {
 
@@ -48,6 +50,12 @@ export const add = (project, field, parent, typeId, properties = {}) => ({
 
 export const remove = id => ({ type: NODE_REMOVE, id })
 
+export const toggleEdit = id => ({ type: NODE_TOGGLE_EDIT, id})
+
+export const change = (id, field, value) => ({
+  type: NODE_PROPERTY_CHANGE, id, field, value
+})
+
 export default (state = defaultState, action) => {
 
   switch(action.type) {
@@ -77,6 +85,12 @@ export default (state = defaultState, action) => {
         .filter(node => node.id !== action.id)
 
       return normalize(newList)
+
+    case NODE_TOGGLE_EDIT:
+      console.log(action, state.edit)
+      return (state.edit && state.edit === action.id)
+        ? { ...state, edit: null }
+        : { ...state, edit: action.id }
 
     default:
       return state

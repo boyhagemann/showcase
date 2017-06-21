@@ -6,7 +6,8 @@ export default [
     label: 'Content',
     accepts: 'html',
     collection: true,
-    required: false
+    required: false,
+    order: 0,
   },
   {
     id: 'grid-1x1x1.column1',
@@ -15,7 +16,8 @@ export default [
     label: 'Column 1',
     accepts: 'html',
     collection: true,
-    required: false
+    required: false,
+    order: 0,
   },
   {
     id: 'grid-1x1x1.column2',
@@ -24,7 +26,8 @@ export default [
     label: 'Column 2',
     accepts: 'html',
     collection: true,
-    required: false
+    required: false,
+    order: 0,
   },
   {
     id: 'grid-1x1x1.column3',
@@ -33,6 +36,57 @@ export default [
     label: 'Column 3',
     accepts: 'html',
     collection: true,
-    required: false
-  }
+    required: false,
+    order: 0,
+  },
+  {
+    id: 'visual.image',
+    belongsTo: 'visual',
+    name: 'image',
+    label: 'Image',
+    accepts: 'string',
+    collection: false,
+    required: true,
+    order: 0,
+  },
+  {
+    id: 'visual.heading',
+    belongsTo: 'visual',
+    name: 'heading',
+    label: 'Heading',
+    accepts: 'string',
+    collection: false,
+    required: true,
+    order: 0,
+  },
+  {
+    id: 'visual.subheading',
+    belongsTo: 'visual',
+    name: 'subheading',
+    label: 'Subheading',
+    accepts: 'string',
+    collection: false,
+    required: true,
+    order: 0,
+  },
+  {
+    id: 'info.heading',
+    belongsTo: 'info',
+    name: 'heading',
+    label: 'Heading',
+    accepts: 'string',
+    collection: false,
+    required: true,
+    order: 0,
+  },
+  {
+    id: 'info.description',
+    belongsTo: 'info',
+    name: 'description',
+    label: 'Description',
+    accepts: 'text',
+    collection: false,
+    required: true,
+    order: 1,
+  },
 ]

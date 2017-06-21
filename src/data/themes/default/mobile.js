@@ -88,6 +88,9 @@ export default {
         width: '100%',
         padding: '18px 10px',
         spacing: '3px',
+      },
+      edit: {
+        background: Color(colors.canvas).darken(0.1).string(),
       }
     },
     button: {

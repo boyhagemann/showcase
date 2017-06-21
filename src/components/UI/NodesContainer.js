@@ -1,6 +1,6 @@
 import Nodes from './Nodes'
 import { connect } from 'react-redux'
-import { add, remove } from '../../redux/nodes'
+import { add, remove, toggleEdit } from '../../redux/nodes'
 
 const getCurrentNode = (state, project, match) => {
   const id = match.params.node || project.rootNode
@@ -22,18 +22,21 @@ const getChildren = (nodes, parent, field) => nodes
 
 const mapStateToProps = (state, { project, match }) => {
 
-  const fields = state.fields.list
+  const propertyFields = state.fields.list.filter(field => field.collection === false)
+  const collectionFields = state.fields.list.filter(field => field.collection === true)
   const types = state.types.byId
   const node = getCurrentNode(state, project, match)
   const field = node && getCurrentField(state, node, match)
   const nodes = node && getChildren(state.nodes.list, node, field)
+  const activeEdit = state.nodes.edit
 
-  return { nodes, node, field, types, fields }
+  return { nodes, node, field, types, propertyFields, collectionFields, activeEdit }
 }
 
 const mapDispatchToProps = dispatch => ({
   add: (project, field, parent, typeId, properties) => () => dispatch(add(project, field, parent, typeId, properties)),
   remove: id => dispatch(remove(id)),
+  toggleEdit: id => dispatch(toggleEdit(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nodes)

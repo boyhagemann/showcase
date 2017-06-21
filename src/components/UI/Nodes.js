@@ -23,13 +23,16 @@ const Actions = styled.div`
   }
 `
 
-const renderNode = (node, types, fields, remove) => node ? (
+const renderNode = (node, types, propertyFields, collectionFields, remove, toggleEdit, isEdit) => node ? (
     <Node
       {...node}
       key={node.id}
       type={types[node.type]}
-      fields={fields.filter(field => field.belongsTo === node.type )}
+      propertyFields={propertyFields}
+      collectionFields={collectionFields.filter(field => field.belongsTo === node.type )}
       remove={ () => remove(node.id) }
+      isEdit={isEdit}
+      toggleEdit={ () => toggleEdit(node.id) }
     />
 ) : (
   <RedirectWithMessage
@@ -46,14 +49,14 @@ const renderEmpty = () => (
   </MaxWidth>
 )
 
-export default ({ project, node, field, nodes, path = [], types, fields, add, remove }) => node ? (
+export default ({ project, node, field, nodes, path = [], types, propertyFields, collectionFields, add, remove, toggleEdit, activeEdit }) => node ? (
   <Nodes>
       <BreadcrumbContainer node={node} />
       { nodes.length
           ? (
             <div>
               <List>
-                { nodes.map(node => renderNode(node, types, fields, remove)) }
+                { nodes.map(node => renderNode(node, types, propertyFields, collectionFields, remove, toggleEdit, activeEdit === node.id )) }
               </List>
             </div>
           )

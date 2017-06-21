@@ -4,6 +4,7 @@ import Box from '../Box'
 import Button from './Button'
 import ButtonLink from './ButtonLink'
 import MaxWidth from './MaxWidth'
+import NodePropertiesForm from './NodePropertiesForm'
 import { FormattedMessage } from 'react-intl'
 
 const Node = styled.div`
@@ -55,14 +56,14 @@ const Container = styled.div`
   position: relative;
 `
 
-export default ({ id, type, fields, label, project, remove }) => (
+export default ({ id, type, properties, collectionFields, propertyFields, label, project, remove, toggleEdit, isEdit }) => (
   <Container key={id}>
     <Node>
       <Block>
         <Content>
           <Heading>{ label } <Type>{ type.label }</Type></Heading>
-          { fields.length ? (<Fields>
-            { fields.map(field => (
+          { collectionFields.length ? (<Fields>
+            { collectionFields.map(field => (
               <FieldButton
                 key={`aaaa${id}-${field.id}`}
                 to={`/projects/${project}/nodes/${id}/${field.id}`}
@@ -73,9 +74,15 @@ export default ({ id, type, fields, label, project, remove }) => (
         ) : null }
         </Content>
         <Actions>
-          <EditButton border><FormattedMessage id="node.actions.edit" /></EditButton>
+          <EditButton border onClick={toggleEdit}><FormattedMessage id="node.actions.edit" /></EditButton>
           <Button negative onClick={remove}><FormattedMessage id="node.actions.delete" /></Button>
         </Actions>
+        { isEdit && (
+          <NodePropertiesForm
+            fields={propertyFields.filter(field => field.belongsTo === type.id)}
+            properties={properties}
+          />
+        ) }
       </Block>
     </Node>
   </Container>
