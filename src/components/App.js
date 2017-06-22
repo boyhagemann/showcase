@@ -36,8 +36,8 @@ const store = createStore(reducers, composeWithDevTools(
 ))
 
 // begin periodically persisting the store
-// persistStore(store)
-//   .purge()
+persistStore(store)
+  .purge()
 
 const App = () => (
   <Provider store={store}>
