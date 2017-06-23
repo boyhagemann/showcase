@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import ButtonLink from './ButtonLink'
-import Box from '../Box'
+import Grid from './Grid'
 import MaxWidth from './MaxWidth'
 import { FormattedMessage } from 'react-intl'
 
@@ -21,28 +21,26 @@ const NavbarLink = ButtonLink.extend`
     color: #666
 `
 
-const Left = Box.extend`
-  width: ${ props => props.theme.ui.navbar.left.width };
-`
-
-const Right = Box.extend`
-  text-align: ${ props => props.theme.ui.navbar.right.align };
-  width: ${ props => props.theme.ui.navbar.right.width };
-`
 
 export default ({ isAuthenticated }) => (
   <Navbar>
     <MaxWidth>
-      <Left>
-        <NavbarLink to={`/`}><FormattedMessage id="navbar.menu.home" /></NavbarLink>
-        { isAuthenticated && <NavbarLink to={`/projects`}><FormattedMessage id="navbar.menu.projects" /></NavbarLink> }
-      </Left>
-      <Right>
-        { !isAuthenticated && <NavbarLink to={`/login`}><FormattedMessage id="navbar.menu.login" /></NavbarLink> }
-        { !isAuthenticated && <NavbarLink to={`/signup`}><FormattedMessage id="navbar.menu.signup" /></NavbarLink> }
-        { isAuthenticated && <NavbarLink to={`/account`}><FormattedMessage id="navbar.menu.account" /></NavbarLink> }
-        { isAuthenticated && <NavbarLink to={`/logout`}><FormattedMessage id="navbar.menu.logout" /></NavbarLink> }
-      </Right>
+      <Grid
+        left={
+          <div>
+            <NavbarLink to={`/`}><FormattedMessage id="navbar.menu.home" /></NavbarLink>
+            { isAuthenticated && <NavbarLink to={`/projects`}><FormattedMessage id="navbar.menu.projects" /></NavbarLink> }
+          </div>
+        }
+        right={
+          <div>
+            { !isAuthenticated && <NavbarLink to={`/login`}><FormattedMessage id="navbar.menu.login" /></NavbarLink> }
+            { !isAuthenticated && <NavbarLink to={`/signup`}><FormattedMessage id="navbar.menu.signup" /></NavbarLink> }
+            { isAuthenticated && <NavbarLink to={`/account`}><FormattedMessage id="navbar.menu.account" /></NavbarLink> }
+            { isAuthenticated && <NavbarLink to={`/logout`}><FormattedMessage id="navbar.menu.logout" /></NavbarLink> }
+          </div>
+        }
+      />
     </MaxWidth>
   </Navbar>
 )

@@ -2,7 +2,7 @@ import nodes from '../data/nodes'
 import { fromArray } from '../utils'
 import { getNextOrder } from '../utils/nodes'
 import uuidv4 from 'uuid/v4'
-import Immutable from 'immutable'
+import { PROJECT_REMOVE } from './projects'
 
 const normalize = (nodes, fields) => ({
   list: nodes,
@@ -39,14 +39,10 @@ export const createRootNode = (id, project, typeId) => ({
   typeId,
 })
 
-export const add = (project, field, parent, typeId, properties = {}) => ({
+export const add = data => ({
   type: NODE_ADD,
   id: uuidv4(),
-  project,
-  typeId,
-  properties,
-  parent,
-  field,
+  ...data
 })
 
 export const remove = id => ({ type: NODE_REMOVE, id })
@@ -88,13 +84,15 @@ export default (state = defaultState, action) => {
       return normalize(newList)
 
     case NODE_TOGGLE_EDIT:
-      console.log(action)
       return (state.edit && state.edit === action.id)
         ? { ...state, edit: null }
         : { ...state, edit: action.id }
 
     case NODE_PROPERTY_CHANGE:
-      const changed = state.list
+
+      const { edit, list } = state
+
+      const changed = list
         .map(node => {
           if(node.id !== action.id) return node
 
@@ -106,9 +104,10 @@ export default (state = defaultState, action) => {
           return { ...node, properties }
         })
 
-      console.log(state.edit)
+      return { ...normalize(changed), edit }
 
-      return { ...normalize(changed), edit: state.edit }
+    case PROJECT_REMOVE:
+      return normalize(state.list.filter(node => node.project === action.id))
 
     default:
       return state

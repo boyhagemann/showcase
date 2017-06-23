@@ -6,6 +6,7 @@ export const fonts = {
 }
 
 export const colors = {
+  white: 'white',
   canvas: '#edefe6',
   primary: '#39f',
   positive: '#72c46f',

@@ -3,7 +3,7 @@ export default {
     fontSizes: {
       default: '18px'
     },
-    navbar: {
+    grid: {
       left: {
         width: '50%'
       },
@@ -12,15 +12,6 @@ export default {
         width: '50%'
       },
     },
-    node: {
-      content: {
-        width: "50%"
-      },
-      actions: {
-        width: "50%",
-        textAlign: 'right',
-      }
-    }
   },
   visual: {
     content: {

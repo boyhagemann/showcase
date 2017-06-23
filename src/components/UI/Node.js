@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Box from '../Box'
+import Grid from './Grid'
 import Button from './Button'
 import ButtonLink from './ButtonLink'
 import MaxWidth from './MaxWidth'
@@ -35,17 +35,14 @@ const Type = styled.span`
   font-size: 0.8em;
 `
 
-const Content = styled(Box)`
-  width: ${ props => props.theme.ui.node.content.width};
+const Content = styled.div`
   padding: ${ props => props.theme.ui.node.content.padding };
 `
 const Block = styled(MaxWidth)`
   background: ${ props => props.theme.ui.node.block.background };
 `
 
-const Actions = styled(Box)`
-  text-align: ${ props => props.theme.ui.node.actions.textAlign};
-  width: ${ props => props.theme.ui.node.actions.width};
+const Actions = styled.div`
   padding: ${ props => props.theme.ui.node.actions.padding };
 `
 
@@ -61,23 +58,30 @@ export default ({ id, type, properties, collectionFields, propertyFields, label,
   <Container key={id}>
     <Node>
       <Block>
-        <Content>
-          <Heading>{ label } <Type>{ type.label }</Type></Heading>
-          { collectionFields.length ? (<Fields>
-            { collectionFields.map(field => (
-              <FieldButton
-                key={`aaaa${id}-${field.id}`}
-                to={`/projects/${project}/nodes/${id}/${field.id}`}
-                border
-              >{ field.label }</FieldButton>
-            )) }
-          </Fields>
-        ) : null }
-        </Content>
-        <Actions>
-          <EditButton border onClick={toggleEdit}><FormattedMessage id="node.actions.edit" /></EditButton>
-          <Button negative onClick={remove}><FormattedMessage id="node.actions.delete" /></Button>
-        </Actions>
+        <Grid
+          left={(
+            <Content>
+              <Heading>{ label } <Type>{ type.label }</Type></Heading>
+              { collectionFields.length ? (<Fields>
+                { collectionFields.map(field => (
+                  <FieldButton
+                    key={`aaaa${id}-${field.id}`}
+                    to={`/projects/${project}/nodes/${id}/${field.id}`}
+                    border
+                  >{ field.label }</FieldButton>
+                )) }
+              </Fields>
+            ) : null }
+            </Content>
+          )}
+          right={(
+            <Actions>
+              <EditButton border onClick={toggleEdit}><FormattedMessage id="node.actions.edit" /></EditButton>
+              <Button negative onClick={remove}><FormattedMessage id="node.actions.delete" /></Button>
+            </Actions>
+          )}
+        />
+
         { isEdit && (
           <NodePropertiesForm
             onSubmit={values => console.log(values)}
@@ -86,6 +90,7 @@ export default ({ id, type, properties, collectionFields, propertyFields, label,
             properties={properties}
           />
         ) }
+
       </Block>
     </Node>
   </Container>

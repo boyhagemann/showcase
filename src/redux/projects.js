@@ -11,26 +11,19 @@ const normalize = projects => ({
 
 const defaultState = normalize(projects)
 
-const PROJECT_CREATE = 'project.create'
-const PROJECT_REMOVE = 'project.remove'
+export const PROJECT_CREATE = 'project.create'
+export const PROJECT_REMOVE = 'project.remove'
 
 export const create = () => (dispatch, getState) => {
+
   const projectId = uuidv4()
   const nodeId = uuidv4()
   const typeId = 'project'
-
-  // const email = getState().auth.credentials.email
-  // const users = getState().users.byEmail
-  // const user = users[email]
   const userId = null
-
-  // console.log(user)
 
   dispatch(createProject(projectId, nodeId, 'New project', userId))
   dispatch(createRootNode(nodeId, projectId, typeId))
   dispatch(push(`/projects/${projectId}/nodes`))
-
-
 }
 
 export const createProject = (id, rootNode, label, user) => ({
@@ -53,6 +46,9 @@ export default (state = defaultState, action) => {
       const newList = [ ...state.list, project ]
 
       return normalize(newList)
+
+    case PROJECT_REMOVE:
+      return normalize(state.list.filter(project => project.id !== action.id))
 
     default:
       return state

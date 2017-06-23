@@ -6,13 +6,26 @@ export default {
     colors,
     fonts,
     fontSizes: {
-      default: '22px'
+      default: '22px',
+      heading: '40px',
     },
     maxWidth: {
       width: '1200px',
       margin: '0 10px',
     },
     navbar: {
+      left: {
+        width: '100%'
+      },
+      right: {
+        align: 'left',
+        width: '100%'
+      },
+    },
+    heading: {
+      color: colors.text,
+    },
+    grid: {
       left: {
         width: '100%'
       },
@@ -55,8 +68,15 @@ export default {
     projects: {
       card: {
         width: '25%',
-        background: colors.canvas,
-        padding: '10px',
+        header: {
+          background: Color(colors.canvas).darken(0.1).string(),
+        },
+        heading: {
+          color: colors.text,
+        },
+        content: {
+          background: colors.white,
+        }
       }
     },
     nodes: {
@@ -84,11 +104,9 @@ export default {
         color: '#606c70',
       },
       content: {
-        width: '100%',
         padding: '15px',
       },
       actions: {
-        textAlign: 'left',
         width: '100%',
         padding: '18px 10px',
         spacing: '3px',

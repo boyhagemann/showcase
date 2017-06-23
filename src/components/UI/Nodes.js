@@ -1,11 +1,11 @@
 import React from 'react'
 import Node from './Node'
 import styled from 'styled-components'
-import Button from './Button'
-import DropZone from './DropZone'
+import DropZoneContainer from './DropZoneContainer'
 import MaxWidth from './MaxWidth'
 import BreadcrumbContainer from './BreadcrumbContainer'
 import RedirectWithMessage from './RedirectWithMessage'
+import NodeActionsContainer from './NodeActionsContainer'
 
 const Nodes = styled.div`
 `
@@ -15,13 +15,6 @@ const List = styled.div`
   background: ${ props => props.theme.ui.nodes.background };
 `
 
-const Actions = styled.div`
-  margin-top: 20px;
-  text-align: center;
-  > ${Button} {
-    margin-right: 3px;
-  }
-`
 
 const renderNode = (node, types, propertyFields, collectionFields, remove, toggleEdit, isEdit) => node ? (
     <Node
@@ -62,14 +55,17 @@ export default ({ project, node, field, nodes, path = [], types, propertyFields,
           )
           : project.rootNode === node.id && renderEmpty()
       }
-    <DropZone
+    <DropZoneContainer
+      node={node}
+      field={field}
       title="Upload your pictures..."
       description="...Or drag your images here on the drop zone."
     />
-    <Actions>
-      <Button onClick={add(project.id, field.id, node.id, 'grid-1x1x1')}>Add a Grid</Button>
-      <Button onClick={add(project.id, field.id, node.id, 'info') }>Add an Info block</Button>
-    </Actions>
+    <NodeActionsContainer
+      project={project}
+      node={node}
+      field={field}
+     />
   </Nodes>
 ) : (
   <RedirectWithMessage

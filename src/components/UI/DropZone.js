@@ -3,12 +3,13 @@ import styled from 'styled-components'
 import Button from './Button'
 import Text from './Text'
 import MaxWidth from './MaxWidth'
+import Dropzone from 'react-dropzone'
 
 const Container = styled.div`
   margin: 20px 0;
 `
 
-const Zone = styled.div`
+const Zone = styled(Dropzone)`
   border: 2px dashed #ddd;
   padding: 20px;
   text-align: center;
@@ -22,13 +23,15 @@ const Description = Text.extend`
   margin-bottom: 0;
 `
 
-export default ({ title, description }) => (
+export default ({ title, description, add }) => (
   <Container>
     <MaxWidth>
-      <Zone>
-        <Upload>{ title }</Upload>
-        <Description>{ description }</Description>
-      </Zone>
+        <Zone activeStyle={{ background: 'green'}} onDrop={ (accepted, rejected) => {
+            accepted.map(file => add(file))
+          }}>
+          <Upload>{ title }</Upload>
+          <Description>{ description }</Description>
+        </Zone>
     </MaxWidth>
   </Container>
 )

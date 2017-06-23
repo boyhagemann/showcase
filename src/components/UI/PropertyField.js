@@ -1,5 +1,4 @@
 import React from 'react'
-import Box from '../Box'
 import TextInput from './FormFields/TextInput'
 import TextArea from './FormFields/TextArea'
 import Row from './FormFields/Row'
@@ -22,6 +21,9 @@ const renderField = (accepts, name, value, change) => {
         defaultValue={value}
         onChange={change}
        />
+
+   default:
+      console.error(`Unsupported field type: ${accepts}`)
   }
 }
 
