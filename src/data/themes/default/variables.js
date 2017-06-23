@@ -1,6 +1,10 @@
 
 export const descriptionFont = "'Amatic SC', cursive"
 
+export const fonts = {
+  default: "Raleway, sans-serif",
+}
+
 export const colors = {
   canvas: '#edefe6',
   primary: '#39f',

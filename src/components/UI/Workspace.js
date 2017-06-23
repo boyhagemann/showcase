@@ -13,6 +13,9 @@ import history from '../../redux/routerHistory'
 
 const Content = styled.div`
   padding-top: 40px;
+  font-family: ${ props => props.theme.ui.fonts.default };
+  font-size: ${ props => props.theme.ui.fontSizes.default };
+  line-heigth: ${ props => props.theme.ui.fontSizes.default };
 `
 
 const logoutAndRedirect = logout => {

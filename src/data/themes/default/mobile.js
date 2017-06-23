@@ -1,9 +1,13 @@
-import { descriptionFont, colors } from './variables'
+import { descriptionFont, colors, fonts } from './variables'
 import Color from 'color'
 
 export default {
   ui: {
     colors,
+    fonts,
+    fontSizes: {
+      default: '22px'
+    },
     maxWidth: {
       width: '1200px',
       margin: '0 10px',

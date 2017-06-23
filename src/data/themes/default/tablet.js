@@ -1,5 +1,8 @@
 export default {
   ui: {
+    fontSizes: {
+      default: '18px'
+    },
     navbar: {
       left: {
         width: '50%'

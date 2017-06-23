@@ -22,7 +22,6 @@ injectGlobal([`
     margin: 0;
     background: #edefe6;
     font-size: 16px;
-    font-family: 'Raleway', sans-serif;
   }
 `])
 

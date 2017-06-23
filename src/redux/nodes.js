@@ -2,6 +2,7 @@ import nodes from '../data/nodes'
 import { fromArray } from '../utils'
 import { getNextOrder } from '../utils/nodes'
 import uuidv4 from 'uuid/v4'
+import Immutable from 'immutable'
 
 const normalize = (nodes, fields) => ({
   list: nodes,
@@ -52,8 +53,8 @@ export const remove = id => ({ type: NODE_REMOVE, id })
 
 export const toggleEdit = id => ({ type: NODE_TOGGLE_EDIT, id})
 
-export const change = (id, field, value) => ({
-  type: NODE_PROPERTY_CHANGE, id, field, value
+export const change = (id, name, value) => ({
+  type: NODE_PROPERTY_CHANGE, id, name, value
 })
 
 export default (state = defaultState, action) => {
@@ -87,10 +88,27 @@ export default (state = defaultState, action) => {
       return normalize(newList)
 
     case NODE_TOGGLE_EDIT:
-      console.log(action, state.edit)
+      console.log(action)
       return (state.edit && state.edit === action.id)
         ? { ...state, edit: null }
         : { ...state, edit: action.id }
+
+    case NODE_PROPERTY_CHANGE:
+      const changed = state.list
+        .map(node => {
+          if(node.id !== action.id) return node
+
+          const properties = {
+            ...node.properties,
+            [action.name]: action.value
+          }
+
+          return { ...node, properties }
+        })
+
+      console.log(state.edit)
+
+      return { ...normalize(changed), edit: state.edit }
 
     default:
       return state

@@ -13,6 +13,7 @@ const Navbar = styled.div`
   background: white;
   z-index: 10;
   padding: 5px 0;
+  font-family: ${ props => props.theme.ui.fonts.default };
 `
 
 const NavbarLink = ButtonLink.extend`

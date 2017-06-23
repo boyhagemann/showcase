@@ -12,6 +12,7 @@ const Node = styled.div`
   left: 0;
   top: 0;
   padding: ${ props => props.theme.ui.node.padding };
+  font-family: ${ props => props.theme.ui.fonts.default };
 `
 
 const Heading = styled.h2`
@@ -79,6 +80,8 @@ export default ({ id, type, properties, collectionFields, propertyFields, label,
         </Actions>
         { isEdit && (
           <NodePropertiesForm
+            onSubmit={values => console.log(values)}
+            id={id}
             fields={propertyFields.filter(field => field.belongsTo === type.id)}
             properties={properties}
           />
