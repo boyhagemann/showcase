@@ -24,7 +24,7 @@ const logoutAndRedirect = logout => {
 }
 
 export default ({ isAuthenticated, logout }) => (
-  <ConnectedRouter history={history}>
+  <ConnectedRouter history={history} basename={process.env.BASE_URL}>
       <Content>
         <NavbarContainer />
         <Route exact path="/" component={HomeContainer} />
