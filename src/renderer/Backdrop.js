@@ -6,11 +6,18 @@ const Container = styled.div`
   width: 100%;
   ${ props => props.height ? 'height: ' + props.height + 'px;' : null }
   position: relative;
+  background-color: black;
 `
 
-const mask = props => props.mask
-  ? 'mask-image: radial-gradient(rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);'
+const mask = props => {
+  console.log(props.mask)
+  return props.mask
+  ? `
+  mask-image: radial-gradient(rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+  -webkit-mask-image: radial-gradient(rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+  `
   : null
+}
 
 const blur = props => props.blur
   ? '-webkit-filter: blur(5px);'
@@ -21,12 +28,12 @@ const Image = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  background-color: black;
   width: 100%;
   ${ props => props.height ? 'min-height: ' + props.height + 'px;' : null }
   position: ${ props => props.fixed ? 'fixed' : 'relative' };
   ${ props => blur }
   ${ props => mask }
-  mask-repeat: space;
 `
 
 
